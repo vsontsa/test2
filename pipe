@@ -1,0 +1,56 @@
+        properties([parameters([booleanParam(defaultValue: true, description: 'Enable Git clone', name: 'git_clone'), booleanParam(defaultValue: false, description: 'Install Pakaes', name: 'install_pkg')])])
+        
+        pipeline {
+            agent { label 'AGENT1' }
+            environment {
+                VARIABLE = "HELLO WORLD"
+                        }
+            stages {
+                stage("Hello") {
+                    steps {
+                        echo "${env.VARIABLE}"
+                          }
+                            }
+                stage("Install Packages") {
+        			when {
+                        environment name: 'install_pkg', value: 'true'
+        				}		
+                    steps {
+                        sh 'apt-get update ; apt-get -y upgrade ; apt-get install -y autoconf python git make automake libtool'
+                          }
+                            }
+                stage("Get from git") {
+        			when {
+                        environment name: 'git_clone', value: 'true'
+        				}
+                    steps {
+                        git 'https://github.com/curl/curl.git'
+                          }
+                            }
+                stage("autoreconf") {
+                    steps {
+                        sh 'autoreconf -fi'
+                          }
+                            }
+                stage("configure") {
+                    steps {
+                        sh './configure --without-ssl'
+                          }
+                            }
+                stage("make") {
+                    steps {
+                        sh 'make'
+                          }
+                            }
+                stage("make test") {
+                    steps {
+                        sh ''
+                          }
+                            }
+                stage("make install") {
+                    steps {
+                        sh 'make install'
+                          }
+                            }
+                    }
+                 }
