@@ -1,7 +1,7 @@
         properties([parameters([booleanParam(defaultValue: true, description: 'Enable Git clone', name: 'git_clone'), booleanParam(defaultValue: true, description: 'Install Pakaes', name: 'install_pkg')])])
         
         pipeline {
-            agent { label 'AGENT1' }
+            agent { label 'any' }
             environment {
                 VARIABLE = "HELLO WORLD"
                         }
