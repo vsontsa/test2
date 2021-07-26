@@ -44,7 +44,7 @@
                             }
                 stage("make test") {
                     steps {
-                        sh ''
+                        sh 'make test'
                           }
                             }
                 stage("make install") {
