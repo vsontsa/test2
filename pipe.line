@@ -1,4 +1,4 @@
-        properties([parameters([booleanParam(defaultValue: true, description: 'Enable Git clone', name: 'git_clone'), booleanParam(defaultValue: false, description: 'Install Pakaes', name: 'install_pkg')])])
+        properties([parameters([booleanParam(defaultValue: true, description: 'Enable Git clone', name: 'git_clone'), booleanParam(defaultValue: true, description: 'Install Pakaes', name: 'install_pkg')])])
         
         pipeline {
             agent { label 'AGENT1' }
